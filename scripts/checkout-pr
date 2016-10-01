@@ -27,6 +27,6 @@ BRANCH=$2
 SPDIR="$(cd "`dirname $0`"/../spark; pwd)"
 cd "$SPDIR"
 
-# git fetch upstream
+git fetch upstream
 git checkout upstream/pr/$PR_NUM -b $BRANCH
 git prune
