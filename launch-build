@@ -18,15 +18,30 @@
 #
 
 if [ $# -eq 0 ]; then
-  echo "Usage : $0 14252 branchA"
+  echo "Usage : "
+  echo "  -  $0 14242 CORE org.apache.spark.deploy.SparkSubmitSuite"
+  echo "  -  $0 15253 SparkR"
   exit 1
 fi
 
 PR_NUM=$1
-BRANCH=$2
-SPDIR="$(cd "`dirname $0`"/../spark; pwd)"
-cd "$SPDIR"
+COMPONENT=$2
+SUITE=$3
+BRANCH=`uuidgen`
 
-# git fetch upstream
-git checkout upstream/pr/$PR_NUM -b $BRANCH
-git prune
+SPDIR="$(cd "`dirname $0`"/spark; pwd)"
+
+./scripts/checkout-pr $PR_NUM $BRANCH
+./scripts/gen-appveyor-yml $COMPONENT $SUITE
+./scripts/push-commit $PR_NUM $BRANCH
+
+cd "$SPDIR"
+url=`git remote -v | grep origin | grep push`
+replaced=$(echo $url | sed -e "s/.*github\.com\///g")
+org=$(echo $replaced | sed -e "s/\/spark\.git.*//g")
+
+if [ -z "$SUITE" ]; then
+  SUITE="ALL"
+fi
+
+echo "Build started: [$COMPONENT] \`$SUITE\` [![PR-$PR_NUM](https://ci.appveyor.com/api/projects/status/github/$org/spark?branch=$BRANCH&svg=true)](https://ci.appveyor.com/project/$org/spark/branch/$BRANCH)"

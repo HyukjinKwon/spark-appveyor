@@ -30,6 +30,6 @@ git clone $SPARK_URL
 cd spark
 git remote add upstream https://github.com/apache/spark.git
 
-echo '        fetch = +refs/pull/*/head:refs/remotes/origin/pr/*' >> .git/config
+echo '        fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*' >> .git/config
 
 git fetch upstream

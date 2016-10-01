@@ -19,8 +19,8 @@
 
 if [ $# -eq 0 ]; then
     echo "Usage :"
-    echo "  - gen-appveyor CORE org.apache.spark.deploy.SparkSubmitSuite"
-    echo "  - gen-appveyor SparkR"
+    echo "  - $0 CORE org.apache.spark.deploy.SparkSubmitSuite"
+    echo "  - $0 SparkR"
     exit 1
 fi
 
