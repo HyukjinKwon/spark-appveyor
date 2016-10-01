@@ -20,6 +20,10 @@ shallow_clone: true
 platform: x64
 configuration: Debug
 
+environment:
+  # Disable lint
+  NOLINT_ON_COMPILE: 0
+
 cache:
   - C:\Users\appveyor\.m2
 
