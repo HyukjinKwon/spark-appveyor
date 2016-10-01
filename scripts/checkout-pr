@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-if [ $# -eq 0 ]
-  then
-    echo "Usage : checkout-pr 14252 branchA"
+if [ $# -eq 0 ]; then
+  echo "Usage : checkout-pr 14252 branchA"
+  exit 1
 fi
 
 PR_NUM=$1

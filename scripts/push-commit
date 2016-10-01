@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-if [ $# -eq 0 ]
-  then
-    echo "Usage : push-commit 14423 branchA"
+if [ $# -eq 0 ]; then
+  echo "Usage : push-commit 14423 branchA"
+  exit 1
 fi
 
 SPDIR="$(cd "`dirname $0`"/../spark; pwd)"
