@@ -27,8 +27,8 @@ fi
 COMPONENT=$1
 SUITE=$2
 SPDIR="$(cd "`dirname $0`"/../spark; pwd)"
-cd "$SPDIR"
 ETCDIR="$(cd "`dirname $0`"/../etc; pwd)"
+cd "$SPDIR"
 
 if [ "$COMPONENT" == "SparkR" ]; then
    # R
