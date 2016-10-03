@@ -18,7 +18,7 @@
 #
 
 if [ $# -eq 0 ]; then
-    echo "Usage : init https://github.com/spark-test/spark.git"
+    echo "Usage : $0 https://github.com/spark-test/spark.git"
   exit 1
 fi
 
