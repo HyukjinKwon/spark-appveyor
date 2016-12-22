@@ -1,0 +1,98 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+version: "{build}-{branch}"
+
+shallow_clone: true
+
+platform: x64
+configuration: Debug
+
+environment:
+  # Disable lint
+  NOLINT_ON_COMPILE: 0
+
+  matrix:
+    - goal: "core/test"
+      profiles: ""
+    - goal: "catalyst/test"
+      profiles: ""
+    - goal: "sql/test"
+      profiles: ""
+    - goal: "hive/test"
+      profiles: "-Phive"
+    - goal: "sql-kafka-0-10/test"
+      profiles: ""
+    - goal: "sketch/test"
+      profiles: ""
+    - goal: "graphx/test"
+      profiles: ""
+    - goal: "streaming/test"
+      profiles: ""
+    - goal: "streaming-kafka-0-8/test"
+      profiles: ""
+    - goal: "streaming-kafka-0-10/test"
+      profiles: ""
+    - goal: "streaming-flume-sink/test"
+      profiles: ""
+    - goal: "streaming-flume/test"
+      profiles: ""
+    - goal: "mllib-local/test"
+      profiles: ""
+    - goal: "mllib/test"
+      profiles: ""
+    - goal: "examples/test"
+      profiles: ""
+    - goal: "repl/test"
+      profiles: ""
+    - goal: "network-common/test"
+      profiles: ""
+    - goal: "network-shuffle/test"
+      profiles: ""
+    - goal: "launcher/test"
+      profiles: ""
+    - goal: "unsafe/test"
+      profiles: ""
+cache:
+  - C:\Users\appveyor\.m2
+
+install:
+  # Install maven and dependencies
+  - ps: .\dev\appveyor-install-dependencies.ps1
+  # Install sbt to run individual tests
+  - ps: |
+      Add-Type -AssemblyName System.IO.Compression.FileSystem
+      if (!(Test-Path -Path "C:\sbt" )) {
+        (new-object System.Net.WebClient).DownloadFile(
+          'https://dl.bintray.com/sbt/native-packages/sbt/0.13.7/sbt-0.13.7.zip',
+          'C:\sbt-bin.zip'
+        )
+        [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\sbt-bin.zip", "C:\sbt")
+      }
+  - cmd: SET PATH=C:\sbt\sbt\bin;%JAVA_HOME%\bin;%PATH%
+  - cmd: SET SBT_OPTS=-XX:MaxPermSize=2g -Xmx4g
+
+build_script:
+  - cmd: sbt -Phadoop-2.3 %profiles% package
+
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: false
+
+test_script:
+  - cmd: sbt -Phadoop-2.3 %profiles% %goal%
+

@@ -33,8 +33,11 @@ cd "$SPDIR"
 if [ "$COMPONENT" == "SparkR" ]; then
    # R
    cp -f $ETCDIR/appveyor-r.yml.template $SPDIR/appveyor.yml
+elif [ "$COMPONENT" == "ALL" ]; then
+   # All tests for Scala/Java
+   cp -f $ETCDIR/appveyor-scala-all.yml.template $SPDIR/appveyor.yml
 else
-   # Scala
+   # Scala/Java
    cp -f $ETCDIR/appveyor-scala.yml.template $SPDIR/appveyor.yml
    echo "test_script:" >> appveyor.yml
    echo "  - cmd: sbt -Pyarn -Phadoop-2.3 -Phive -Phive-thriftserver \"test-only $SUITE\"" >> appveyor.yml
