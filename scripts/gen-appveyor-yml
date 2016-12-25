@@ -33,7 +33,7 @@ cd "$SPDIR"
 if [ "$COMPONENT" == "SparkR" ]; then
    # R
    cp -f $ETCDIR/appveyor-r.yml.template $SPDIR/appveyor.yml
-elif [ "$COMPONENT" == "ALL" ]; then
+elif [ "$SUITE" == "ALL" ]; then
    # All tests for Scala/Java
    cp -f $ETCDIR/appveyor-scala-all.yml.template $SPDIR/appveyor.yml
 else

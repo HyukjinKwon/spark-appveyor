@@ -42,6 +42,12 @@ The forked repository should be authroized and registered in AppVeyor CI tool. P
     ./launch-build 14242 CORE org.apache.spark.deploy.SparkSubmitSuite
     ```
 
+  - Running all Scala/Java tests, `ALL` with TESTS component
+
+    ```
+    ./launch-build 14242 TESTS ALL
+    ```
+
   After running this script, it will print a pretty string to copy and paste to GitHub command.
   For example,
 
