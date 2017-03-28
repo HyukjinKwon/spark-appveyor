@@ -44,7 +44,7 @@ install:
   - cmd: SET SBT_OPTS=-XX:MaxPermSize=2g -Xmx4g
 
 build_script:
-  - cmd: sbt -Pyarn -Phadoop-2.6 -Phive -Phive-thriftserver clean package
+  - cmd: sbt -Pyarn -Phive -Phive-thriftserver clean package
 
 notifications:
   - provider: Email
