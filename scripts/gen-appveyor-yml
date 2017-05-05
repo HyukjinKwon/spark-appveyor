@@ -40,7 +40,7 @@ else
    # Scala/Java
    cp -f $ETCDIR/appveyor-scala.yml.template $SPDIR/appveyor.yml
    echo "test_script:" >> appveyor.yml
-   echo "  - cmd: sbt -Pyarn -Phadoop-2.6 -Phive -Phive-thriftserver \"test-only $SUITE\"" >> appveyor.yml
+   echo "  - cmd: sbt -Pyarn -Phive -Phive-thriftserver \"test-only $SUITE\"" >> appveyor.yml
    echo  >> appveyor.yml
 fi
 
