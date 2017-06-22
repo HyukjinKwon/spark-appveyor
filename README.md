@@ -59,4 +59,4 @@ The forked repository should be authroized and registered in AppVeyor CI tool. P
 
   > Build started: [CORE] `org.apache.spark.storage.DiskStoreSuite` [![PR-15320](https://ci.appveyor.com/api/projects/status/github/spark-test/spark?branch=097F2F95-4748-4435-967F-98980DB2112E&svg=true)](https://ci.appveyor.com/project/spark-test/spark/branch/097F2F95-4748-4435-967F-98980DB2112E)
 
-**NOTE: Currently, PySpark tests and running individual SparkR tests are not supports.**
+**NOTE: Currently, PySpark tests and running individual SparkR tests are not supported.**
