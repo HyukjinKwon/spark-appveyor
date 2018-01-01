@@ -29,11 +29,21 @@ COMPONENT=$2
 SUITE=$3
 BRANCH=`uuidgen`
 
-SPDIR="$(cd "`dirname $0`"/spark; pwd)"
+# Fetch the pull request.
+cd "$(cd "`dirname $0`"/spark; pwd)"
+git fetch upstream refs/pull/$PR_NUM/head:$BRANCH
 
-./scripts/checkout-pr $PR_NUM $BRANCH
-./scripts/gen-appveyor-yml $COMPONENT $SUITE
-./scripts/push-commit $PR_NUM $BRANCH
+# Generate appveyor.yml
+../scripts/gen-appveyor-yml $COMPONENT $SUITE
+
+# Push the updated appveyor.yml.
+git checkout $BRANCH
+git add appveyor.yml
+git commit -m "Pull Reqeust: $1"
+git push origin $BRANCH
+
+# Checkout back to the master
+git checkout master
 
 cd "$SPDIR"
 url=`git remote -v | grep origin | grep push`
