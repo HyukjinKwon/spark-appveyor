@@ -34,7 +34,7 @@ cd "$(cd "`dirname $0`"/spark; pwd)"
 git fetch upstream refs/pull/$PR_NUM/head:$BRANCH
 
 # Generate appveyor.yml
-../scripts/gen-appveyor-yml $COMPONENT $SUITE
+../gen-appveyor-yml $COMPONENT $SUITE
 
 # Push the updated appveyor.yml.
 git checkout $BRANCH

@@ -14,11 +14,11 @@ The forked repository should be authroized and registered in AppVeyor CI tool. P
 
 ### Quick Start
 
-- If this is not initiated once, `./dev/init [REPO_URL]` script should be run first,
+- If this is not initiated once, `./init [REPO_URL]` script should be run first,
   where `REPO_URL` is the url of your repositry forked from Apache Spark. For example,
 
   ```bash
-  ./dev/init https://github.com/spark-test/spark.git
+  ./init https://github.com/spark-test/spark.git
   ```
 
 - Then, you can trigger the build with `./launch-build [PR_NUM] [COMPONENT] [SUITE]`

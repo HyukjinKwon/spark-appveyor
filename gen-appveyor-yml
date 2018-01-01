@@ -18,18 +18,29 @@
 #
 
 if [ $# -eq 0 ]; then
-    echo "Usage : $0 https://github.com/spark-test/spark.git"
-  exit 1
+    echo "Usage :"
+    echo "  - $0 CORE org.apache.spark.deploy.SparkSubmitSuite"
+    echo "  - $0 SparkR"
+    exit 1
 fi
 
-FWDIR="$(cd "`dirname $0`"/..; pwd)"
-cd "$FWDIR"
-SPARK_URL=$1
+COMPONENT=$1
+SUITE=$2
+SPDIR="$(cd "`dirname $0`"/spark; pwd)"
+ETCDIR="$(cd "`dirname $0`"/etc; pwd)"
+cd "$SPDIR"
 
-git clone $SPARK_URL
-cd spark
-git remote add upstream https://github.com/apache/spark.git
+if [ "$COMPONENT" == "SparkR" ]; then
+   # R
+   cp -f $ETCDIR/appveyor-r.yml.template $SPDIR/appveyor.yml
+elif [ "$SUITE" == "ALL" ]; then
+   # All tests for Scala/Java
+   cp -f $ETCDIR/appveyor-scala-all.yml.template $SPDIR/appveyor.yml
+else
+   # Scala/Java
+   cp -f $ETCDIR/appveyor-scala.yml.template $SPDIR/appveyor.yml
+   echo "test_script:" >> appveyor.yml
+   echo "  - cmd: sbt -Phive -Phive-thriftserver \"test-only $SUITE\"" >> appveyor.yml
+   echo  >> appveyor.yml
+fi
 
-echo '        fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*' >> .git/config
-
-git fetch upstream
