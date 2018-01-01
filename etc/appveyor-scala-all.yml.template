@@ -24,6 +24,7 @@ environment:
   # Disable lint
   NOLINT_ON_COMPILE: 0
 
+  # These are actually not complete yet due to some limitation in AppVeyor.
   matrix:
     - goal: "core/test"
       profiles: ""
@@ -34,7 +35,7 @@ environment:
     - goal: "sql-kafka-0-10/test sketch/test graphx/test"
       profiles: ""
     - goal: "streaming/test streaming-kafka-0-8/test streaming-kafka-0-10/test streaming-flume-sink/test streaming-flume/test"
-      profiles: ""
+      profiles: "-Pkafka-0-8 -Pflume"
     - goal: "mllib-local/test mllib/test examples/test repl/test"
       profiles: ""
     - goal: "network-common/test network-shuffle/test launcher/test unsafe/test"
