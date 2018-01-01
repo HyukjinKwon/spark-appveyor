@@ -1,3 +1,5 @@
+This repo is mainly for the author to run some tests on Windows to verify pull requests, to check tests before each release, etc. in Apache Spark :D.
+
 # Spark AppVeyor Scripts
 
 This repository has some scripts to launch a build against each Pull Reqeust on Windows.
